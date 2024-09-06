@@ -7,7 +7,7 @@ def railFenceEncode(plaintext: str, rail_count: int = 2):
 
     # We start at 1 because this statement is basically
     # for (int i = 1; i < rail_count; ++i)
-    for i in range(1, rail_count):
+    for i in range(0, rail_count):
         rails.append("")
 
     # Now we iterate through the plain text and add each character to the appropriate rail
