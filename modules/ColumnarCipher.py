@@ -1,4 +1,6 @@
 def columnarCipherEncode(plaintext: str, key: str, order: str):
+    key = key.upper()
+    order = order.upper()
     # First we check if we need to add padding characters by finding the remainder of the total number of characters
     # divided by the total number of columns
     # We then get the characters we need to add from key_len - remainder
@@ -34,5 +36,32 @@ def columnarCipherEncode(plaintext: str, key: str, order: str):
 
 
 def columnarCipherDecode(ciphertext: str, key: str, order: str):
-    pass
+    key = key.upper()
+    order = order.upper()
+    # first we find the number of characters per column
+    key_len = len(key)
+    column_len = int(len(ciphertext) / key_len)
+
+    # create the map that will store each column, and then add each character
+    columns = {}
+    cipher_index = 0
+    for char in order:
+        columns[char] = ""
+        for i in range(0, column_len):
+            columns[char] += ciphertext[cipher_index]
+            cipher_index += 1
+
+    # to get the text back to the plain text form, we will have to start from the first row and move left to right
+    #   K E Y
+    #   0 1 2
+    #   0 1 2
+    #   0 1 2
+    output = ""
+    for i in range(0, column_len):
+        for char in key:
+            output += columns[char][i]
+
+    return output
+
+
 

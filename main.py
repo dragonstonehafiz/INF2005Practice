@@ -1,7 +1,8 @@
 from modules.VigenereCipher import VigenereCipher
 from modules.CaesarCipher import CaesarCipher
 from modules.RailFenceCipher import railFenceEncode
-from modules.ColumnarCipher import columnarCipherEncode
+from modules.ColumnarCipher import columnarCipherEncode, columnarCipherDecode
+from modules.DiffieHellmanKeyExchange import diffieHellmanExchange
 
 vigenere = VigenereCipher()
 
@@ -24,3 +25,8 @@ print(f"Rail Fence Encode: {encoded}")
 
 encoded = columnarCipherEncode("HELLOWORLD", "RED", "DER")
 print(f"Columnar Cipher Encode: {encoded}")
+
+decoded = columnarCipherDecode("PRRO IEACLCHSEO", 'KEY', 'YEK')
+print(f"Columnar Cipher Decode: {decoded}")
+
+diffieHellmanExchange(G=5, p=13, a=314, b=69)
