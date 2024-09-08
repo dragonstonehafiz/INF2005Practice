@@ -1,32 +1,31 @@
-from modules.VigenereCipher import VigenereCipher
-from modules.CaesarCipher import CaesarCipher
-from modules.RailFenceCipher import railFenceEncode
-from modules.ColumnarCipher import columnarCipherEncode, columnarCipherDecode
-from modules.DiffieHellmanKeyExchange import diffieHellmanExchange
+import os
+import sys
 
-vigenere = VigenereCipher()
+from quiz.mcq import MCQ
+from questions.Question_DiffieHellman import Question_DiffieHellman
+from questions.Question_DecodeColumnar import Question_DecodeColumnar
 
-decoded = vigenere.decode("KS ME HZ BBL KS ME MPOG AJ XSE JCSFLZSY", "RELATIONS")
-print(f"Vigenere Decoded: {decoded}")
+choose_qnd = MCQ("What type of Question would you like to do?")
+choose_qnd.add_option(("Diffie Hellman Key Exchange", Question_DiffieHellman()))
+choose_qnd.add_option(("Decoding Columnar Cipher", Question_DecodeColumnar()))
+choose_qnd.add_option(("Quit", None))
 
-encoded = vigenere.encode("TO BE OR NOT TO BE THAT IS THE QUESTION", "RELATIONS")
-print(f"Vigenere Encoded: {encoded}")
+chosen = None
 
-caesar = CaesarCipher()
 
-decoded = caesar.encode("All your base are belong to us", 5)
-print(f"Caesar Decoded: {decoded}")
+while True:
+    # Pick Question to generate
+    while chosen is None:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        choose_qnd.print_options()
+        chosen = choose_qnd.pick_option()
+        if chosen == "fail":
+            input("Your choice was out of range. Press any key to try again.")
+        elif chosen is None:
+            sys.exit(0)
 
-encoded = caesar.decode("Fqq dtzw gfxj fwj gjqtsl yt zx", 5)
-print(f"Caesar Encoded: {encoded}")
+    # Answer Question
+    chosen.mainloop()
 
-encoded = railFenceEncode("HELLOBOB", 3)
-print(f"Rail Fence Encode: {encoded}")
 
-encoded = columnarCipherEncode("HELLOWORLD", "RED", "DER")
-print(f"Columnar Cipher Encode: {encoded}")
 
-decoded = columnarCipherDecode("PRRO IEACLCHSEO", 'KEY', 'YEK')
-print(f"Columnar Cipher Decode: {decoded}")
-
-diffieHellmanExchange(G=5, p=13, a=314, b=69)
